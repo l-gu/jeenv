@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+	version="3.1">
+	<display-name>javaee-tooling</display-name>
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.htm</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>default.html</welcome-file>
+		<welcome-file>default.htm</welcome-file>
+		<welcome-file>default.jsp</welcome-file>
+	</welcome-file-list>
+
+	<!-- resources to add in JNDI context "java:comp/env" -->
+	<!--
+		<env-entry> 
+			Environment entry, a single-value parameter that can be used to configure how the application will operate.
+			( only with basic types : java.lang.Byte, java.lang.Boolean, java.lang.Double, java.lang.String, etc )
+			
+		<resource-ref> (*)
+			Resource reference, which is typically to an object factory for resources 
+			such as a JDBC DataSource, a JavaMail Session, or custom object factories configured into Tomcat.	
+					
+		<resource-env-ref> (*)
+			Resource environment reference, a new variation of resource-ref added in Servlet 2.4 
+			that is simpler to configure for resources that do not require authentication information. 
+			
+		(*) requires a factory : 
+		usable with standard resource factories (provided by Java EE server, e.g. Tomcat)
+		or with specific resource factories (to be defined in Java EE server configuration, e.g. <Context> for Tomcat )
+	 -->
+	 
+	<env-entry>
+		<description>my color in JNDI</description>
+		<env-entry-name>color</env-entry-name>  <!-- JNDI name : java:comp/env/color -->
+		<env-entry-type>java.lang.String</env-entry-type>
+		<env-entry-value>BLUE</env-entry-value>
+	</env-entry>
+
+	<env-entry>
+		<description>my flag in JNDI</description>
+		<env-entry-name>flag</env-entry-name> <!-- JNDI name : java:comp/env/flag -->
+		<env-entry-type>java.lang.Boolean</env-entry-type>
+		<env-entry-value>true</env-entry-value>
+	</env-entry>
+
+	<env-entry>
+		<description>my resource in JNDI</description>
+		<env-entry-name>resource1</env-entry-name> <!-- JNDI name : java:comp/env/resource1 -->
+		<env-entry-type>org.lgulab.restype.Resource1</env-entry-type>
+		<env-entry-value>RESOURCE1</env-entry-value>
+	</env-entry>
+
+	<env-entry>
+		<description>my count in JNDI</description>
+		<env-entry-name>foo/bar/count</env-entry-name> <!-- JNDI name : java:comp/env/foo/bar/count -->
+		<env-entry-type>java.lang.Long</env-entry-type>
+		<env-entry-value>1234</env-entry-value>
+	</env-entry>
+
+	<resource-env-ref>
+		<resource-env-ref-name>test/Object1</resource-env-ref-name> <!-- JNDI name : java:comp/env/test/Object1 -->
+		<!-- lookup NamingException (no factory defined) -->
+		<resource-env-ref-type>org.lgulab.restype.Resource1</resource-env-ref-type> <!-- type 'ResourceEnvRef' -->
+	</resource-env-ref>
+
+
+</web-app>
