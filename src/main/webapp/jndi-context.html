@@ -5,17 +5,18 @@
 <title>JNDI context</title>
 </head>
 <body>
-<h1>Show JNDI context </h1>
-<form action="./jndi/context" method="get">
+<h1>Show JNDI context list</h1>
+<form action="./jndi/context/list" method="get">
 JNDI context name : <input name="name" size="50"/>
 <br><br>
 Context name examples : 
 <ul>
 <li>java:comp/env</li>
-
+<li>java:global</li>
 </ul>
 <br><br>
- <input type="submit" value="List context">
+<input type="submit" value="Context list" onclick='this.form.action="./jndi/context/list";'>
+<input type="submit" value="Context tree" onclick='this.form.action="./jndi/context/tree";'>
 </form>
 </body>
 </html>

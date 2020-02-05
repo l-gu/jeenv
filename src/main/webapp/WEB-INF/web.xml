@@ -47,24 +47,28 @@
 	</env-entry>
 
 	<env-entry>
-		<description>my resource in JNDI</description>
-		<env-entry-name>resource1</env-entry-name> <!-- JNDI name : java:comp/env/resource1 -->
-		<env-entry-type>org.lgulab.restype.Resource1</env-entry-type>
-		<env-entry-value>RESOURCE1</env-entry-value>
-	</env-entry>
-
-	<env-entry>
 		<description>my count in JNDI</description>
 		<env-entry-name>foo/bar/count</env-entry-name> <!-- JNDI name : java:comp/env/foo/bar/count -->
 		<env-entry-type>java.lang.Long</env-entry-type>
 		<env-entry-value>1234</env-entry-value>
 	</env-entry>
 
-	<resource-env-ref>
-		<resource-env-ref-name>test/Object1</resource-env-ref-name> <!-- JNDI name : java:comp/env/test/Object1 -->
-		<!-- lookup NamingException (no factory defined) -->
-		<resource-env-ref-type>org.lgulab.restype.Resource1</resource-env-ref-type> <!-- type 'ResourceEnvRef' -->
-	</resource-env-ref>
+	<!-- ERROR when deploying on JBoss -->
+	<!-- 
+	<env-entry>
+		<description>my resource in JNDI</description>
+		<env-entry-name>resource1</env-entry-name> 
+		<env-entry-type>org.lgulab.restype.Resource1</env-entry-type>
+		<env-entry-value>RESOURCE1</env-entry-value>
+	</env-entry>
+	 -->
 
+	<!-- ERROR when deploying on JBoss -->
+	<!-- 
+	<resource-env-ref>
+		<resource-env-ref-name>test/Object1</resource-env-ref-name>
+		<resource-env-ref-type>org.lgulab.restype.Resource1</resource-env-ref-type>
+	</resource-env-ref>
+	-->
 
 </web-app>

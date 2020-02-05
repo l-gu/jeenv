@@ -14,17 +14,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet
+ * Servlet to list all context entries at the given name level <br>
+ * 
  */
-@WebServlet(urlPatterns = "/jndi/context")
-public class JndiContextServlet extends HttpServlet {
+@WebServlet(urlPatterns = "/jndi/context/list")
+public class JndiContextListServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Default constructor.
 	 */
-	public JndiContextServlet() {
+	public JndiContextListServlet() {
 		super();
 	}
 
@@ -32,28 +33,25 @@ public class JndiContextServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		PrintWriter out = response.getWriter();
-		
+
 		String name = request.getParameter("name");
-		if ( name != null ) {
+		if (name != null) {
 			listContextEntries(out, name.trim());
-		}
-		else {
+		} else {
 			listContextEntries(out, "");
 		}
 
 	}
 
 	private void listContextEntries(PrintWriter out, String name) {
-		out.append("JNDI entries for context name '" + name + "' : \n");
+		out.append("JNDI entries ('NameClassPair' items) for context name '" + name + "' : \n");
 		try {
 			Context context = new InitialContext();
 			NamingEnumeration<NameClassPair> list = context.list(name);
 			while (list.hasMore()) {
 				NameClassPair pair = list.next();
-				out.append(" . '" + pair.getName() + "' " 
-						+ ( pair.isRelative() ? "(relative)" : "(not relative)")
-						+ " : '" + pair.getClassName() + "' "
-						+ getMoreInfo(pair) );
+				out.append(" . '" + pair.getName() + "' " + (pair.isRelative() ? "(relative)" : "(not relative)")
+						+ " : '" + pair.getClassName() + "' " + getMoreInfo(pair));
 				out.append("\n");
 			}
 		} catch (Exception e) {
@@ -66,14 +64,14 @@ public class JndiContextServlet extends HttpServlet {
 
 	private String getMoreInfo(NameClassPair pair) {
 		String info = "";
-		String nameInNamespace = null ;
+		String nameInNamespace = null;
 		try {
 			// throws UnsupportedOperationException if undefined
 			nameInNamespace = pair.getNameInNamespace();
 		} catch (UnsupportedOperationException e) {
-			nameInNamespace = null ;
+			nameInNamespace = null;
 		}
-		if ( nameInNamespace != null ) {
+		if (nameInNamespace != null) {
 			info = "(" + nameInNamespace + ")";
 		}
 		return info;
